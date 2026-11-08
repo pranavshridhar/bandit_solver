@@ -1,7 +1,7 @@
 import paramiko
 from paramiko.client import SSHClient
 
-from bandit_solver import SolverSession
+from bandit_solver import Solver
 
 # ssh = SSHClient()
 
@@ -27,5 +27,5 @@ from bandit_solver import SolverSession
 
 # stdout.read().decode()
 
-solver = SolverSession(current_level=0)
+solver = Solver(current_level=0)
 print(solver._construct_file_path())
