@@ -2,3 +2,4 @@
 .vscode/*
 __pycache__/*
 architecture.txt
+trial.py
