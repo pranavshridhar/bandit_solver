@@ -7,7 +7,7 @@ SOLVER_SCRIPT_DIR = "solver_scripts"
 HOSTNAME = "bandit.labs.overthewire.org"
 PORT = 2220
 
-class SolverSession:
+class Solver:
     """
     A SolverSession is the object responsible for solving a level.
     Given the authentication method into a level, its `solve()` function
