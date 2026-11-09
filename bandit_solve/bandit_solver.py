@@ -18,8 +18,6 @@ class Solver:
     to the next level.
     """
     # TODO: Lots of shit
-    # - Formally define class
-    # - Make base authentication method class which password, kepair, and other stuff will inherit from
     # - Expand the thing as needed
     # - Make a better design
 
