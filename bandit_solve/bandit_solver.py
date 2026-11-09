@@ -1,9 +1,9 @@
 
 from pathlib import Path
+import sys
 from typing import Optional
-
-import paramiko
-from paramiko.client import SSHClient
+from paramiko.client import SSHClient, AutoAddPolicy
+from paramiko.ssh_exception import AuthenticationException
 
 from bandit_solve.authentication_method import AuthenticationMethod, Password
 from bandit_solve.file_utils import read_file
@@ -26,7 +26,6 @@ class Solver:
 
     @property
     def solver_path(self):
-        print()
         next_level = self.current_level + 1
         script_filename = f'solve_{self.current_level}_{next_level}.sh'
         path =  Path(f'./{SOLVER_SCRIPT_DIR}') / script_filename
@@ -53,7 +52,7 @@ class Solver:
         self._hostname = hostname
         self._port = port
         self._ssh_client = ssh_client if ssh_client is not None else SSHClient()
-        self._ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        self._ssh_client.set_missing_host_key_policy(AutoAddPolicy())
 
     @property
     def _level_user(self):
@@ -65,14 +64,20 @@ class Solver:
         auth = self._auth_method
         script_contents = read_file(self.solver_path)
 
-        ssh.connect(
-            hostname=self._hostname,
-            port=self._port,
-            username=self._level_user,
-            look_for_keys=False,
-            allow_agent=False,
-            **auth.paramiko_kwargs
-        )
+        try:
+
+            ssh.connect(
+                hostname=self._hostname,
+                port=self._port,
+                username=self._level_user,
+                look_for_keys=False,
+                allow_agent=False,
+                **auth.paramiko_kwargs
+            )
+        except AuthenticationException:
+            print(f"ERROR: Authentication into level {self.current_level} (bandit{self.current_level}) failed. Please check authentication method or solution to previous problem.")
+            exit(1)
+            
 
         stdin, stdout, stderr = ssh.exec_command('/bin/bash')
         stdin.write(script_contents)
