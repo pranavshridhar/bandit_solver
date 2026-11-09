@@ -1,6 +1,7 @@
 import paramiko
 from paramiko.client import SSHClient
 
+from bandit_solve.authentication_method import AuthenticationMethod, Password
 from bandit_solve.bandit_solver import Solver
 
 # ssh = SSHClient()
@@ -26,5 +27,20 @@ from bandit_solve.bandit_solver import Solver
 # stdin.close()
 
 # stdout.read().decode()
+
+LEVELS = 2
+
+
+ssh = SSHClient()
+ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+
+auth: AuthenticationMethod = Password(0, "bandit0")
+
+for i in range(LEVELS):
+    solver = Solver(auth, current_level=i)
+    auth = solver.solve()
+
+
+
 
 

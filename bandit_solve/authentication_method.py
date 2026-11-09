@@ -16,17 +16,17 @@ class AuthenticationMethod(ABC):
     @property
     @abstractmethod
     def paramiko_kwargs(self) -> dict:
-        pass
+        raise NotImplementedError
 
     @property
     @abstractmethod
     def suggested_filename(self) -> str:
-        pass
+        raise NotImplementedError
 
     @property
     @abstractmethod
     def raw(self) -> str:
-        pass
+        raise NotImplementedError
 
 
 class Password(AuthenticationMethod):

@@ -76,7 +76,7 @@ class Solver:
             )
         except AuthenticationException:
             print(f"ERROR: Authentication into level {self.current_level} (bandit{self.current_level}) failed. Please check authentication method or solution to previous problem.")
-            exit(1)
+            raise
             
 
         stdin, stdout, stderr = ssh.exec_command('/bin/bash')
