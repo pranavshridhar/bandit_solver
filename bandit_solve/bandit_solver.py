@@ -1,6 +1,7 @@
 
 from pathlib import Path
-import os
+
+from bandit_solve.authentication_method import AuthenticationMethod
 
 # default vars
 SOLVER_SCRIPT_DIR = "solver_scripts"
@@ -33,16 +34,12 @@ class Solver:
     def current_level(self) -> int:
         return self._current_level
 
-    def __init__(self, current_level: int = 0, hostname=HOSTNAME, port = PORT, auth_method: str = ''):
+    def __init__(self, auth_method: AuthenticationMethod, current_level: int = 0, hostname=HOSTNAME, port = PORT):
         """
         ## TODO:
          - Write me
         """
         self._current_level = current_level
+        self._auth_method = auth_method
         self._hostname = hostname
         self._port = port
-        pass
-
-
-
-    pass
