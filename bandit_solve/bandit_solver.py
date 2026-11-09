@@ -1,5 +1,8 @@
 
 from pathlib import Path
+from typing import Optional
+
+import paramiko
 from paramiko.client import SSHClient
 
 from bandit_solve.authentication_method import AuthenticationMethod, Password
@@ -25,7 +28,7 @@ class Solver:
     def solver_path(self):
         print()
         next_level = self.current_level + 1
-        script_filename = f'solver_{self.current_level}_{next_level}.sh'
+        script_filename = f'solve_{self.current_level}_{next_level}.sh'
         path =  Path(f'./{SOLVER_SCRIPT_DIR}') / script_filename
         return str(path.resolve())
 
@@ -39,7 +42,7 @@ class Solver:
             current_level: int = 0, 
             hostname=HOSTNAME, 
             port = PORT,
-            ssh_client: SSHClient = SSHClient()
+            ssh_client: Optional[SSHClient] = None
         ):
         """
         ## TODO:
@@ -49,7 +52,8 @@ class Solver:
         self._auth_method = auth_method
         self._hostname = hostname
         self._port = port
-        self._ssh_client = ssh_client
+        self._ssh_client = ssh_client if ssh_client is not None else SSHClient()
+        self._ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
     @property
     def _level_user(self):

@@ -23,6 +23,11 @@ class AuthenticationMethod(ABC):
     def suggested_filename(self) -> str:
         pass
 
+    @property
+    @abstractmethod
+    def raw(self) -> str:
+        pass
+
 
 class Password(AuthenticationMethod):
     # TODO: Give a better docstring
@@ -43,6 +48,10 @@ class Password(AuthenticationMethod):
     def suggested_filename(self) -> str:
         fpath = Path(f'./auths') / 'passwords' / f'bandit{self._level}.txt'
         return str(fpath.resolve())
+
+    @property
+    def raw(self) -> str:
+        return self._password_text
 
 
 class PrivateKey(AuthenticationMethod):
@@ -67,4 +76,8 @@ class PrivateKey(AuthenticationMethod):
     def paramiko_kwargs(self) -> dict:
         # TODO: assumes we will always store as file. what if we won't?
         return {"key_filename": self.suggested_filename}
+
+    @property
+    def raw(self) -> str:
+        return self._raw_key
 
