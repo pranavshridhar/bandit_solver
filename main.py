@@ -22,7 +22,9 @@ try:
         solver = Solver(auth, current_level=i)
         auth = solver.solve()
         auth_data.append(copy.deepcopy(auth))
-        print(f"cracked level: {i}")
+
+        # CONSIDER: maybe don't use the word 'cracked' here?
+        print(f"cracked level: {i+1}")
 
     print(f"reached the end of {LEVELS} levels")
 except Exception as e:
