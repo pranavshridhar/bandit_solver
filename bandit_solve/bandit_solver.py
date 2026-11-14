@@ -81,5 +81,5 @@ class Solver:
 
         stdin, stdout, stderr = ssh.exec_command('/bin/bash')
         stdin.write(script_contents)
-        raw_auth = stdout.read().decode()
+        raw_auth = stdout.read().decode().strip()
         return Password(self.current_level+1, raw_auth) # TODO: Account for private key possibility
