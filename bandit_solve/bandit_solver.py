@@ -62,6 +62,8 @@ class Solver:
 
         ssh = self._ssh_client
         auth = self._auth_method
+
+        # TODO: Make a custom exception for when we don't find our desired file.
         script_contents = read_file(self.solver_path)
 
         try:
@@ -82,4 +84,4 @@ class Solver:
         stdin, stdout, stderr = ssh.exec_command('/bin/bash')
         stdin.write(script_contents)
         raw_auth = stdout.read().decode().strip()
-        return Password(self.current_level+1, raw_auth) # TODO: Account for private key possibility
+        return Password(self.current_level+1, raw_auth) # TODO: Account for private key possibility. Do that when the time comes to make that consideration
