@@ -32,7 +32,7 @@ from bandit_solve.file_utils import read_file, write_file
 
 # stdout.read().decode()
 
-LEVELS = 5
+LEVELS = 6
 
 
 ssh = SSHClient()
