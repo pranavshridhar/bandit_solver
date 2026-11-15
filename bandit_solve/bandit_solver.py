@@ -6,6 +6,7 @@ from paramiko.client import SSHClient, AutoAddPolicy
 from paramiko.ssh_exception import AuthenticationException
 
 from bandit_solve.authentication_method import AuthenticationMethod, Password
+from bandit_solve.exceptions import SolverNotFound
 from bandit_solve.file_utils import read_file
 
 # default vars
@@ -63,8 +64,10 @@ class Solver:
         ssh = self._ssh_client
         auth = self._auth_method
 
-        # TODO: Make a custom exception for when we don't find our desired file.
-        script_contents = read_file(self.solver_path)
+        try:
+            script_contents = read_file(self.solver_path)
+        except FileNotFoundError:
+            raise SolverNotFound(self.solver_path, self.current_level)
 
         try:
 
