@@ -34,7 +34,7 @@ while ! file "data${count}.out" | grep -q "ASCII text"; do
 done
 
 # TODO: Implement the damn macro. Figure that shit out. 3rd time in a row I've had to copy paste logic.
-password_container=$(cat data${count}.out | tr 'A-Za-z' 'N-ZA-Mn-za-m')
+password_container=$(cat data${count}.out)
 IFS=" " read -r -a string_arr <<< "$password_container"
 echo ${string_arr[-1]}
 
