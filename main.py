@@ -19,8 +19,6 @@ auth_data: List[AuthenticationMethod] = []
 
 try:
     for i in range(LEVELS):
-        if i == 13:
-            print("the special")
         solver = Solver(auth, current_level=i)
         auth = solver.solve()
         auth_data.append(copy.deepcopy(auth))

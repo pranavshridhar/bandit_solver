@@ -6,4 +6,4 @@ current_level_pass=$(cat /etc/bandit_pass/bandit14)
 
 # Also minimal netcat knowledge here
 password_container=( $(nc 127.0.0.1 30000 <<< $current_level_pass) )
-echo ${password_container[1]}
+echo ${password_container[-1]}
