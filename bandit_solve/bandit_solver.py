@@ -88,10 +88,9 @@ class Solver:
         _, stdout, _ = ssh.exec_command(script_contents)
         raw_auth = stdout.read().decode()
         ssh.close()
-
-        # Really ugly fix. TODO: Clean.
+        
         next_level = self.current_level + 1
         if next_level in PRIVATE_KEY_LEVELS:
             return PrivateKey(next_level, raw_auth)
 
-        return Password(self.current_level+1, raw_auth.strip())
+        return Password(next_level, raw_auth)

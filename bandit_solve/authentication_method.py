@@ -39,9 +39,9 @@ class Password(AuthenticationMethod):
     This needs to be passed as a string, so this is easy.
     """
 
-    def __init__(self, level: int, password_text):
+    def __init__(self, level: int, password_text: str):
         super().__init__(level)
-        self._password_text = password_text
+        self._password_text = password_text.strip()
 
     @property
     def paramiko_kwargs(self) -> dict:
