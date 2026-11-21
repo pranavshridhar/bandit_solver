@@ -65,6 +65,7 @@ class Solver:
 
         ssh = self._ssh_client
         auth = self._auth_method
+        next_level = self.current_level + 1
 
         try:
             script_contents = read_file(self.solver_path)
@@ -84,11 +85,12 @@ class Solver:
             print(f"ERROR: Authentication into level {self.current_level} (bandit{self.current_level}) failed. Please check authentication method or solution to previous problem.")
             raise
             
-        stdin, stdout, stderr = ssh.exec_command(script_contents)
-        raw_auth = stdout.read().decode().strip()
+        _, stdout, _ = ssh.exec_command(script_contents)
+        raw_auth = stdout.read().decode()
 
+        # Really ugly fix. TODO: Clean.
         next_level = self.current_level + 1
         if next_level in PRIVATE_KEY_LEVELS:
             return PrivateKey(next_level, raw_auth)
 
-        return Password(self.current_level+1, raw_auth)
+        return Password(self.current_level+1, raw_auth.strip())
