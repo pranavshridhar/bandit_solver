@@ -87,6 +87,7 @@ class Solver:
             
         _, stdout, _ = ssh.exec_command(script_contents)
         raw_auth = stdout.read().decode()
+        ssh.close()
 
         # Really ugly fix. TODO: Clean.
         next_level = self.current_level + 1
