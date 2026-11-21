@@ -1,5 +1,8 @@
 from abc import ABC, abstractmethod
+from io import StringIO
 from pathlib import Path
+
+from paramiko import RSAKey
 
 
 # TODO:
@@ -72,10 +75,15 @@ class PrivateKey(AuthenticationMethod):
         fpath = Path(f'./auths') / 'private_keys' / f'bandit{self._level}_key.private'
         return str(fpath.resolve())
 
+    def _key_from_raw(self) -> RSAKey:
+        with StringIO(self._raw_key) as key_stream:
+            return RSAKey.from_private_key(key_stream)
+        
+
     @property
     def paramiko_kwargs(self) -> dict:
         # TODO: assumes we will always store as file. what if we won't?
-        return {"key_filename": self.suggested_filename}
+        return {"pkey": self._key_from_raw()}
 
     @property
     def raw(self) -> str:

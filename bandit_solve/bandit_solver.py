@@ -5,7 +5,7 @@ from typing import Optional
 from paramiko.client import SSHClient, AutoAddPolicy
 from paramiko.ssh_exception import AuthenticationException
 
-from bandit_solve.authentication_method import AuthenticationMethod, Password
+from bandit_solve.authentication_method import AuthenticationMethod, Password, PrivateKey
 from bandit_solve.exceptions import SolverNotFound
 from bandit_solve.file_utils import read_file
 
@@ -13,6 +13,8 @@ from bandit_solve.file_utils import read_file
 SOLVER_SCRIPT_DIR = "solver_scripts"
 HOSTNAME = "bandit.labs.overthewire.org"
 PORT = 2220
+
+PRIVATE_KEY_LEVELS = {14}
 
 class Solver:
     """
@@ -70,7 +72,6 @@ class Solver:
             raise SolverNotFound(self.solver_path, self.current_level)
 
         try:
-
             ssh.connect(
                 hostname=self._hostname,
                 port=self._port,
@@ -83,8 +84,11 @@ class Solver:
             print(f"ERROR: Authentication into level {self.current_level} (bandit{self.current_level}) failed. Please check authentication method or solution to previous problem.")
             raise
             
-
-        stdin, stdout, stderr = ssh.exec_command('/bin/bash')
-        stdin.write(script_contents)
+        stdin, stdout, stderr = ssh.exec_command(script_contents)
         raw_auth = stdout.read().decode().strip()
-        return Password(self.current_level+1, raw_auth) # TODO: Account for private key possibility. Do that when the time comes to make that consideration
+
+        next_level = self.current_level + 1
+        if next_level in PRIVATE_KEY_LEVELS:
+            return PrivateKey(next_level, raw_auth)
+
+        return Password(self.current_level+1, raw_auth)

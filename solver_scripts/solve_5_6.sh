@@ -6,6 +6,6 @@
 
 password_file=$(find . -size 1033c)
 cat $password_file
-exit
+
 
 # file type is ASCII text, with very long lines, so let python strip the whitespace downstream

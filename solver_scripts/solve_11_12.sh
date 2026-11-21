@@ -6,4 +6,3 @@ password_container=$(cat data.txt | tr 'A-Za-z' 'N-ZA-Mn-za-m')
 IFS=" " read -r -a string_arr <<< "$password_container"
 echo ${string_arr[-1]}
 
-exit

@@ -6,5 +6,3 @@ password_container=$(grep password readme)
 IFS=" " read -r -a string_arr <<< "$password_container"
 
 echo ${string_arr[-1]}
-
-exit

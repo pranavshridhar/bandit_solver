@@ -9,4 +9,4 @@ password_file=$( \
 )
 
 cat $password_file
-exit
+
