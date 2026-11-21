@@ -1,3 +1,2 @@
 
 cat ~/sshkey.private
-exit
