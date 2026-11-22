@@ -8,7 +8,7 @@ from bandit_solve.authentication_method import AuthenticationMethod, Password
 from bandit_solve.bandit_solver import Solver
 from bandit_solve.file_utils import read_file, write_file
 
-LEVELS = 20
+LEVELS = 30
 
 
 ssh = SSHClient()
