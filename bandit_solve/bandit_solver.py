@@ -14,7 +14,7 @@ SOLVER_SCRIPT_DIR = "solver_scripts"
 HOSTNAME = "bandit.labs.overthewire.org"
 PORT = 2220
 
-PRIVATE_KEY_LEVELS = {14}
+PRIVATE_KEY_LEVELS = {14,17}
 
 class Solver:
     """
@@ -88,7 +88,7 @@ class Solver:
         _, stdout, _ = ssh.exec_command(script_contents)
         raw_auth = stdout.read().decode()
         ssh.close()
-        
+
         next_level = self.current_level + 1
         if next_level in PRIVATE_KEY_LEVELS:
             return PrivateKey(next_level, raw_auth)

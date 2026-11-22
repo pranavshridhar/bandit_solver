@@ -12,6 +12,7 @@ def read_file(path: str) -> str:
 def write_file(path: str, contents: str) -> None:
     directory = os.path.dirname(path)
     os.makedirs(directory, exist_ok=True)
-    with open(path, 'w') as f:
+    fd = os.open(path = path, flags = os.O_WRONLY | os.O_CREAT | os.O_TRUNC, mode=0o600)
+    with open(fd, 'w') as f:
         f.write(contents)
 
