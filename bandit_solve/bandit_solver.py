@@ -16,6 +16,9 @@ PORT = 2220
 
 PRIVATE_KEY_LEVELS = {14,17}
 
+# If a level takes more than 2 or 3 seconds to finish, better the user knows that
+UNUSUALLY_LONG_LEVELS = {23: 60}
+
 class Solver:
     """
     A SolverSession is the object responsible for solving a level.
@@ -66,6 +69,10 @@ class Solver:
         ssh = self._ssh_client
         auth = self._auth_method
         next_level = self.current_level + 1
+
+        if self.current_level in UNUSUALLY_LONG_LEVELS:
+            seconds = UNUSUALLY_LONG_LEVELS[self.current_level]
+            print(f"  executing solver from level {self.current_level}. Will take a max of {seconds} seconds to execute.")
 
         try:
             script_contents = read_file(self.solver_path)
