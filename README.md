@@ -54,7 +54,7 @@ cd bandit_solver
 2. Set up your virtual environment (optional, but still, highly recommended):
 ```
 python -m venv .venv
-.venv\Scripts\activate  # macOS/Linux: source .venv/bin/activate
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 You can always leave your virtual environment by executing: `deactivate`.
