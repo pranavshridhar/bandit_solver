@@ -11,11 +11,19 @@ This was also a good opportunity to learn how to write Bash scripts: something I
 updating this every now and then until I solve all levels of this game (currently there are 34, though I think they hinted at more coming
 later).
 
+---
+
 ## SOME TECHNICAL DETAILS
 This project consists of a Python orchestrator and a series of Shell scripts, each one made to solve a specific level.
 The orchestrator will connect to the user for a level N, using the authentication method obtained from level N-1. It will then 
 send the script to be executed on the server, which will obtain the authentication method to level N+1. Think of the Python part as 
 the body (or brain) and the Shell part as the limbs.
+
+While this project is made to retrieve the authentication methods to each level, it assumes that the way to solve each level will be exactly
+the same. While I've done my best to make sure that this remains as dynamic as possible should certain details change (like port numbers), there are
+some other details (filepaths specifically) that I am assuming will stay the same.
+
+---
 
 ## WANT TO RUN THIS YOURSELF?
 I would highly advise that you check out OverTheWire's bandit (linked above) and play through it yourself before checking out anywhere else
@@ -56,6 +64,5 @@ python main.py
 ```
 
 4. Profit.
-
 
 
