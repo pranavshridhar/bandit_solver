@@ -9,7 +9,8 @@ This was also a good opportunity to learn how to write Bash scripts: something I
 
 **Note**: I've caught this project up to solving until level 25, which is how far I've actually gotten as of writing. I'll be
 updating this every now and then until I solve all levels of this game (currently there are 34, though I think they hinted at more coming
-later).
+later). If you end up running this project right now, you're going to see an exception pop up that the solver for 25 to 26 does not exist.
+Don't worry: that's supposed to happen. This isn't stable yet.
 
 ---
 
